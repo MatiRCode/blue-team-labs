@@ -1,12 +1,12 @@
 # PsExec Hunt Lab
 
-| Propiedad             | Detalle                                |
-| :-------------------- | :------------------------------------- |
-| **Plataforma** | CyberDefenders                         |
-| **Categoría** | Network Forensics                      |
-| **Dificultad** | Fácil                                  |
-| **Estado** | Completado                              |
-| **Proyecto Completo** | [matircode.dev](https://matircode.dev) |
+| Propiedad             | Detalle                                                                           |
+| :-------------------- | :-------------------------------------------------------------------------------- |
+| **Plataforma**        | [CyberDefenders](https://cyberdefenders.org/blueteam-ctf-challenges/psexec-hunt/) |
+| **Categoría**         | Network Forensics                                                                 |
+| **Dificultad**        | Fácil                                                                             |
+| **Estado**            | Completado                                                                        |
+| **Proyecto Completo** | [matircode.dev](https://matircode.dev)                                            |
 
 ---
 
