@@ -94,7 +94,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     La telemetría revela que este nodo inició un intercambio masivo de datos con dos objetivos principales dentro de la infraestructura: `10.0.0.133` con un total de 38,284 paquetes transferidos (~7 MB) y `10.0.0.131` con 1,755 paquetes (~2 MB). La magnitud de estas conexiones en comparación con el resto de los flujos de la red establece a `10.0.0.130` como la zona cero o punto de origen del compromiso inicial.
   
-    ![Métrica de conversaciones IPv4 en Wireshark que evidencia la actividad de 10.0.0.130 - image_2c74e3.png](../../evidence/ip_atacante.png)
+    ![Métrica de conversaciones IPv4 en Wireshark que evidencia la actividad de 10.0.0.130 - image_2c74e3.png](evidence/ip_atacante.png)
   
 ### Pregunta 2: Para entender completamente el alcance de la brecha, ¿puedes determinar el nombre de host de la máquina al que el atacante pivotó primero?
 
@@ -103,7 +103,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Al examinar el paquete de establecimiento de sesión (Session Setup Request), la disección del `Security Blob` bajo el proveedor NTLMSSP expone el parámetro `Host: HR-PC`. Es crítico señalar que, bajo la arquitectura de autenticación NTLM, este campo identifica a la estación de trabajo de origen (el nodo atacante `10.0.0.130`). Correlacionando este flujo con la resolución de nombres en el tráfico (NBNS/DNS) para la IP de destino `10.0.0.133`, se determinó que el nombre del host objetivo al cual se realizó el pivoteo efectivo corresponde a `sales-pc`, utilizando de manera ilegítima la cuenta de usuario `ssales`.
 
-    ![Estructura del encabezado SMB2 en Wireshark que revela la identidad NTLMSSP de origen - image_2c0556.png](../../evidence/pivote.png)
+    ![Estructura del encabezado SMB2 en Wireshark que revela la identidad NTLMSSP de origen - image_2c0556.png](evidence/pivote.png)
 
 ### Pregunta 3: Conocer el nombre de usuario de la cuenta que el atacante usó para la autenticación nos dará una visión sobre la magnitud de la brecha. ¿Cuál es el nombre de usuario que utiliza el atacante para la autenticación?
   
@@ -112,7 +112,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Al realizar la inspección detallada de la secuencia de paquetes, específicamente en la solicitud de autenticación intermedia (Session Setup Request, NTLMSSP_AUTH), la disección de las estructuras de seguridad de Windows expuso de forma explícita el identificador de cuenta de seguridad. Wireshark decodificó el parámetro dentro del campo `User: \ssales` (y el correspondiente bloque `Account: ssales` en el identificador de sesión), confirmando que el actor de amenazas poseía credenciales válidas de este usuario específico para validar su acceso en la red interna.
 
-    ![Estructura de autenticación NTLMSSP que evidencia el uso de la cuenta comprometida - image_2c0556.png](../../evidence/user.png)
+    ![Estructura de autenticación NTLMSSP que evidencia el uso de la cuenta comprometida - image_2c0556.png](evidence/user.png)
 
 ### Pregunta 4: Después de averiguar cómo se movió el atacante dentro de nuestra red, necesitamos saber qué hizo en la máquina objetivo. ¿Cómo se llama el ejecutable de servicio que el atacante configuró en el objetivo?
 
@@ -121,7 +121,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     La herramienta legítima de Sysinternals, PsExec, opera de manera estándar montando el recurso compartido de administración (`ADMIN$`) e instalando un servicio remoto en el sistema operativo del host objetivo. Al analizar la secuencia inmediata de comandos SMB2, se identificó el cuadro (Frame) 144, el cual registra una solicitud de tipo `Create Request File` enviada desde el vector atacante (`10.0.0.130`) hacia la máquina comprometida (`10.0.0.133`). La disección técnica del paquete revela que el nombre del binario creado y configurado en el sistema destino es de forma explícita `PSEXESVC.exe`, el cual actúa como el motor de ejecución remota para los comandos del atacante.
 
-    ![Evidencia en Wireshark de la solicitud de creación del archivo de servicio PSEXESVC.exe - image_2b851a.png](../../evidence/creacion_bin.png)
+    ![Evidencia en Wireshark de la solicitud de creación del archivo de servicio PSEXESVC.exe - image_2b851a.png](evidence/creacion_bin.png)
 
 ### Pregunta 5: Necesitamos saber cómo el atacante instaló el servicio en la máquina comprometida para entender las tácticas de movimiento lateral del atacante. Esto puede ayudar a identificar otros sistemas afectados. ¿Qué reparto de red utilizó PsExec para instalar el servicio en la máquina objetivo?
 
@@ -130,7 +130,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Al auditar la secuencia de paquetes en Wireshark previa a la instalación del binario malicioso, se identificó una solicitud de conexión a nivel de árbol (Tree Connect Request) dirigida explícitamente hacia la ruta UNC `\\10.0.0.133\ADMIN$`, tal como queda registrado en la telemetría de red expuesta. El uso de este recurso compartido específico (`ADMIN$`), que apunta directamente al directorio raíz del sistema operativo (habitualmente `C:\Windows`), fue el vector necesario para que el proceso posterior de escritura del archivo `PSEXESVC.exe` tuviera éxito, validando de este modo la resolución correcta.
 
-    ![Flujo de paquetes SMB2 que detalla la conexión al recurso oculto de administración - image_2b2744.png](../../evidence/share_work.png)
+    ![Flujo de paquetes SMB2 que detalla la conexión al recurso oculto de administración - image_2b2744.png](evidence/share_work.png)
 
 ### Pregunta 6: Debemos identificar la cuota de red utilizada para comunicarse entre ambas máquinas. ¿Qué cuota de red usaba PsExec para la comunicación?
 
@@ -139,7 +139,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Al examinar la telemetría del protocolo SMB2, se identificaron múltiples solicitudes de control de sistema de archivos (`FSCTL_PIPE_WAIT`) y de acceso (`Create Request File`). Estas interacciones hacen referencia directo a tuberías con nombre (Named Pipes) estructuradas como `PSEXESVC-HR-PC-7980-stdin` y `PSEXESVC-HR-PC-7980-stdout`. Debido a que la arquitectura de red en entornos Windows expone e interconecta de forma estricta las tuberías con nombre a través del recurso oculto `IPC$`, se corrobora que este fue el recurso de red empleado para la comunicación activa del atacante.
 
-    ![Análisis en Wireshark de las solicitudes de Named Pipes asociadas al recurso compartido IPC$ - image_2b10f9.png](../../evidence/bin_ipc.png)
+    ![Análisis en Wireshark de las solicitudes de Named Pipes asociadas al recurso compartido IPC$ - image_2b10f9.png|661](evidence/bin_ipc.png)
 
 ### Pregunta 7: Ahora que tenemos una imagen más clara de las actividades del atacante en la máquina comprometida, es importante identificar cualquier movimiento lateral adicional. ¿Cuál es el nombre de host de la segunda máquina que el atacante apuntó para pivotar dentro de nuestra red?
 
@@ -148,5 +148,5 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Este filtro aísla específicamente los mensajes de tipo `NTLM Challenge` (Type 2), donde un servidor responde al intento de conexión de un cliente revelando sus propios metadatos de identidad decorados. Al inspeccionar el desglose de las estructuras de datos dentro del bloque `Target Info` en el paquete capturado, se identificaron de forma explícita los atributos de identidad del sistema remoto. Los campos correspondientes a `NetBIOS computer name` y `DNS computer name` expusieron el valor `MARKETING-PC`, confirmando inequívocamente la identidad del segundo host objetivo de la infraestructura hacia el cual apuntaba el pivoteo del adversario.
 
-    ![Disección del bloque Target Info de NTLMSSP que expone el nombre del host destino - image_2aaea9.png](../../evidence/filtro_pivote.png)
-    ![Disección del bloque Target Info de NTLMSSP que expone el nombre del host destino - image_2aaea9.png](../../evidence/nombre_maquina_pivote.png)
+    ![Disección del bloque Target Info de NTLMSSP que expone el nombre del host destino - image_2aaea9.png|244](evidence/filtro_pivote.png)
+    ![Disección del bloque Target Info de NTLMSSP que expone el nombre del host destino - image_2aaea9.png](evidence/nombre_maquina_pivote.png)
