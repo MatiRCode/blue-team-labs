@@ -1,0 +1,201 @@
+{
+  "main": {
+    "id": "c18453419f5dc126",
+    "type": "split",
+    "children": [
+      {
+        "id": "dfe2fff5bcba5903",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6987922885a89ee0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "labs/PsExec Hunt Lab/README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6e20c6d92776821a",
+    "type": "split",
+    "children": [
+      {
+        "id": "31e2e4e524700314",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5f9eba1278c6ca41",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de archivos"
+            }
+          },
+          {
+            "id": "985cbf9428f7b4ea",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "0ac5fafdb54177ec",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "2381138825216661",
+    "type": "split",
+    "children": [
+      {
+        "id": "c5765d0a12b31460",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2e399fbaefc49058",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "labs/PsExec Hunt Lab/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes de README"
+            }
+          },
+          {
+            "id": "268110825327d8dc",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "labs/PsExec Hunt Lab/README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes de README"
+            }
+          },
+          {
+            "id": "02e5a354d41fe1f8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "ccd9107edd8a17fa",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "2d0c13455363cc33",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "labs/PsExec Hunt Lab/README.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Esquema de README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false
+    }
+  },
+  "active": "6987922885a89ee0",
+  "lastOpenFiles": [
+    "labs/PsExec Hunt Lab/gemini-code-1780005679343.md",
+    "labs/PsExec Hunt Lab/README.md",
+    "labs/PsExec Hunt Lab/evidence/nombre_maquina_pivote.png",
+    "labs/PsExec Hunt Lab/evidence/filtro_pivote.png",
+    "labs/PsExec Hunt Lab/evidence/bin_ipc.png",
+    "labs/PsExec Hunt Lab/evidence/share_work.png",
+    "labs/PsExec Hunt Lab/evidence/creacion_bin.png",
+    "labs/PsExec Hunt Lab/evidence/user.png",
+    "labs/PsExec Hunt Lab/evidence/pivote.png",
+    "labs/PsExec Hunt Lab/evidence/ip_atacante.png",
+    "templates/csi-linux-skeleton.md",
+    "labs/Lab-Ejemplo-2/README.md"
+  ]
+}
