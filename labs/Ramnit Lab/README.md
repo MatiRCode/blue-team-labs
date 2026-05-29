@@ -86,14 +86,14 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 * **Respuesta:** `ChromeSetup.exe`
 * **Metodología de Análisis:** Al auditar el árbol de procesos mediante el plugin `windows.pstree`, se identificó la presencia de un binario sospechoso denominado `ChromeSetup.exe` ejecutándose bajo el contexto de usuario. Aunque el nombre simula ser un instalador legítimo de Google Chrome, su persistencia en memoria y la posterior telemetría de red confirman que actúa como el vector de ejecución principal del malware Ramnit en el endpoint.
   
-  ![Evidencia Pregunta 1](../../evidence/chrome-pstree.png)
+  ![Evidencia Pregunta 1](evidence/chrome-pstree.png)
 
 ### Pregunta 2: What is the exact path of the executable for the malicious process?
 
 * **Respuesta:** `C:\Users\alex\Downloads\ChromeSetup.exe`
 * **Metodología de Análisis:** Tras aislar el proceso sospechoso `ChromeSetup.exe` (PID 4628), se ejecutó el plugin de Volatility 3 `windows.cmdline`. La telemetría recuperada del espacio de memoria del kernel reveló el comando exacto con el que fue invocado, exponiendo que el binario se alojaba y ejecutaba directamente desde el directorio de descargas del perfil del usuario comprometido (`alex`).
   
-  ![Evidencia Pregunta 2](../../evidence/ruta-malware.png)
+  ![Evidencia Pregunta 2](evidence/ruta-malware.png)
 
 ### Pregunta 3: Identifying network connections is crucial for understanding the malware's communication strategy. What IP address did the malware attempt to connect to?
 
@@ -101,14 +101,14 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 * **Metodología de Análisis:** Una vez estabilizado el entorno operativo de Volatility 3 mediante un entorno virtual dedicado, se procedió a ejecutar el módulo de red `windows.netstat` (o `windows.netscan` según la compilación de la arquitectura del perfil) para auditar las conexiones activas en el volcado de memoria. 
 
     Al filtrar los resultados por el PID 4628, correspondiente al proceso sospechoso `ChromeSetup.exe`, se descubrió un socket saliente direccionado hacia la IP externa `58.64.204.181` en el puerto `5202`. El estado de la conexión en `SYN_SENT` confirma un intento activo por parte del troyano Ramnit de establecer el canal de comunicación persistente con su infraestructura C2.
- ![Evidencia Pregunta 3](../../evidence/c2-malware.png)
+ ![Evidencia Pregunta 3](evidence/c2-malware.png)
 
 ### Pregunta 4: To determine the specific geographical origin of the attack, Which city is associated with the IP address the malware communicated with?
 
 * **Respuesta:** `Hong Kong`
 * **Metodología de Análisis:** Tras aislar la dirección IP del servidor de Comando y Control (C2) (`58.64.204.181`) mediante el análisis forense de memoria, se procedió a ejecutar una fase de enriquecimiento táctico utilizando técnicas de inteligencia de fuentes abiertas (OSINT). Al consultar bases de datos de geolocalización de direccionamiento IP público, se determinó con precisión que el servidor con el que interactuaba el troyano Ramnit está ubicado en la ciudad de **Hong Kong**, lo que ayuda a establecer el origen geográfico de la infraestructura del atacante.
 
-![Evidencia Pregunta 4](../../evidence/geo.png)
+![Evidencia Pregunta 4](evidence/geo.png)
 
 ### Pregunta 5: Hashes serve as unique identifiers for files, assisting in the detection of similar threats across different machines. What is the SHA1 hash of the malware executable?
 
@@ -117,7 +117,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Del conjunto de artefactos generados por Volatility 3, se seleccionó específicamente el archivo representativo del objeto de sección de imagen en el kernel (`ImageSectionObject`), nombrado como `file.0xca82b85325a0.0xca82b7e06c80.ImageSectionObject.ChromeSetup.exe.img`, debido a que preserva de forma fidedigna la estructura del ejecutable en memoria. Finalmente, se utilizó la herramienta de consola de Linux `sha1sum` para calcular la firma criptográfica única del binario comprometido.
 
-![Evidencia Pregunta 5](../../evidence/sha1.png)
+![Evidencia Pregunta 5](evidence/sha1.png)
 
 ### Pregunta 6: Examining the malware's development timeline can provide insights into its deployment. What is the compilation timestamp for the malware?
 
@@ -126,7 +126,7 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Al auditar la sección de metadatos del encabezado PE (*Portable Executable*) del archivo, específicamente en el campo interno `TimeDateStamp` de la estructura `IMAGE_FILE_HEADER`, se extrajo de forma fidedigna la marca de tiempo en la que el compilador empaquetó originalmente el código ejecutable, fijando cronológicamente su creación el 1 de diciembre de 2019 a las 08:36 UTC.
 
-![Evidencia Pregunta 6](../../evidence/creacion.png)
+![Evidencia Pregunta 6](evidence/creacion.png)
 
 ### Pregunta 7: Identifying the domains associated with this malware is crucial for blocking future malicious communications and detecting any ongoing interactions with those domains within our network. Can you provide the domain connected to the malware?
 
@@ -135,4 +135,4 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 
     Al inspeccionar los registros de DNS pasivo (*Passive DNS*) y las actividades de resolución de red documentadas en entornos de Sandbox para esta variante de Ramnit, se aisló el dominio de Comando y Control (C2) activo `dnsnb8.net`. El malware abusa de este dominio dinámico para mantener la persistencia operativa y la comunicación con sus operadores, permitiéndole pivotar de infraestructura IP de forma transparente ante bloqueos perimetrales.
 
-![Evidencia Pregunta 7](../../evidence/dominios.png)
+![Evidencia Pregunta 7](evidence/dominios.png)

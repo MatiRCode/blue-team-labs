@@ -61,10 +61,10 @@ Sección técnica destinada a la resolución y validación de los requerimientos
 *   **Respuesta:** `VALOR_DE_LA_FLAG_O_RESPUESTA`
 *   **Metodología de Análisis:** Explicación del procedimiento técnico, herramientas empleadas (ej. Wireshark, NetworkMiner) y filtros específicos aplicados para aislar la respuesta.
   
-  ![Evidencia Pregunta 1](../../evidence/nombre_de_la_captura_1.png)
+  ![Evidencia Pregunta 1](evidence/nombre_de_la_captura_1.png)
 
 ### Pregunta 2: [PREGUNTA]
 *   **Respuesta:** `VALOR_DE_LA_FLAG_O_RESPUESTA`
 *   **Metodología de Análisis:** Detalle del análisis forense realizado para la extracción de la respuesta.
   
-  ![Evidencia Pregunta 2](../../evidence/nombre_de_la_captura_2.png)
+  ![Evidencia Pregunta 2](evidence/nombre_de_la_captura_2.png)

@@ -185,8 +185,9 @@
   },
   "active": "6987922885a89ee0",
   "lastOpenFiles": [
-    "labs/PsExec Hunt Lab/README.md",
+    "templates/csi-linux-skeleton.md",
     "labs/Ramnit Lab/README.md",
+    "labs/PsExec Hunt Lab/README.md",
     "labs/Ramnit Lab/evidence/dominios.png",
     "labs/Ramnit Lab/evidence/creacion.png",
     "labs/Ramnit Lab/evidence/sha1.png",
@@ -194,7 +195,6 @@
     "labs/Ramnit Lab/evidence/c2-malware.png",
     "labs/Ramnit Lab/evidence/ruta-malware.png",
     "labs/Ramnit Lab/evidence/chrome-pstree.png",
-    "templates/csi-linux-skeleton.md",
     "labs/PsExec Hunt Lab/gemini-code-1780005679343.md",
     "labs/PsExec Hunt Lab/evidence/nombre_maquina_pivote.png",
     "labs/PsExec Hunt Lab/evidence/filtro_pivote.png",
