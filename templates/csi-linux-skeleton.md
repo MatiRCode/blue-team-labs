@@ -1,11 +1,11 @@
 # CyberDefenders: BlueSecOps Investigation
 
-| Propiedad | Detalle |
-| :--- | :--- |
-| **Plataforma** | CyberDefenders |
-| **Categoría** | Blue Team / Network Forensics |
-| **Dificultad** | Por determinar |
-| **Estado** | En Progreso / Bajo Investigación |
+| Propiedad             | Detalle                                |
+| :-------------------- | :------------------------------------- |
+| **Plataforma**        | CyberDefenders                         |
+| **Categoría**         | Blue Team / Network Forensics          |
+| **Dificultad**        | Por determinar                         |
+| **Estado**            | En Progreso / Bajo Investigación       |
 | **Proyecto Completo** | [matircode.dev](https://matircode.dev) |
 
 ---

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "labs/PsExec Hunt Lab/README.md",
+                "file": "labs/Ramnit Lab/README.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,17 +185,19 @@
   },
   "active": "6987922885a89ee0",
   "lastOpenFiles": [
-    "labs/PsExec Hunt Lab/gemini-code-1780005679343.md",
     "labs/PsExec Hunt Lab/README.md",
+    "labs/Ramnit Lab/README.md",
+    "labs/Ramnit Lab/evidence/dominios.png",
+    "labs/Ramnit Lab/evidence/creacion.png",
+    "labs/Ramnit Lab/evidence/sha1.png",
+    "labs/Ramnit Lab/evidence/geo.png",
+    "labs/Ramnit Lab/evidence/c2-malware.png",
+    "labs/Ramnit Lab/evidence/ruta-malware.png",
+    "labs/Ramnit Lab/evidence/chrome-pstree.png",
+    "templates/csi-linux-skeleton.md",
+    "labs/PsExec Hunt Lab/gemini-code-1780005679343.md",
     "labs/PsExec Hunt Lab/evidence/nombre_maquina_pivote.png",
     "labs/PsExec Hunt Lab/evidence/filtro_pivote.png",
-    "labs/PsExec Hunt Lab/evidence/bin_ipc.png",
-    "labs/PsExec Hunt Lab/evidence/share_work.png",
-    "labs/PsExec Hunt Lab/evidence/creacion_bin.png",
-    "labs/PsExec Hunt Lab/evidence/user.png",
-    "labs/PsExec Hunt Lab/evidence/pivote.png",
-    "labs/PsExec Hunt Lab/evidence/ip_atacante.png",
-    "templates/csi-linux-skeleton.md",
-    "labs/Lab-Ejemplo-2/README.md"
+    "labs/PsExec Hunt Lab/evidence/bin_ipc.png"
   ]
 }
